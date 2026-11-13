@@ -16,7 +16,9 @@ cd backend
 
 O endpoint público de disponibilidade é `GET http://localhost:8080/api/health`. A documentação OpenAPI fica em `http://localhost:8080/swagger-ui.html`.
 
-O perfil local `dev` usa H2 em memória, recriado a cada inicialização. Para conectar um projeto Neon, copie `backend/.env.example` para `backend/.env`, substitua os valores pelos dados de **Neon → Connect** e rode a API no perfil `prod`:
+O perfil local `dev` usa H2 em memória, recriado a cada inicialização, e cria uma conta de demonstração de Administrador: `admin@taskflow.local` / `TaskFlow-Demo-2026!`. Essa conta fictícia existe somente no banco H2 local; não é criada no Neon e não autentica o login demonstrativo do frontend.
+
+Para conectar um projeto Neon, copie `backend/.env.example` para `backend/.env`, substitua os valores pelos dados de **Neon → Connect** e rode a API no perfil `prod`:
 
 ```powershell
 cd backend
