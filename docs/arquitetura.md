@@ -20,10 +20,13 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - **Backend:** Java 21 e Spring Boot 3.5.7.
 - **Frontend:** React 19 e Vite 6.
 - **Testes:** JUnit/Spring Boot Test no backend; Vitest e Testing Library no frontend.
-- **Persistência física:** não selecionada; o backend inicial não se conecta a banco de dados.
-- **Banco de integração de CI:** PostgreSQL 16 em Testcontainers, somente para validar inicialização e conectividade do ambiente de testes; isso não escolhe o banco de produção.
+- **Persistência hospedada selecionada:** PostgreSQL gerenciado no Neon, configurado pelo perfil `prod` e variáveis externas; o banco local `dev` usa H2 em memória e descartável.
+- **Migrações:** Flyway versiona o schema PostgreSQL; o Hibernate valida o schema no perfil `prod`, sem alterá-lo automaticamente.
+- **Banco de integração de CI:** PostgreSQL 16 em Testcontainers executa e verifica a migração inicial.
 
-As seleções estão registradas em ADR-009 e ADR-010. As demais táticas seguem registradas como propostas até serem confirmadas na implementação.
+As seleções estão registradas em ADR-009, ADR-010 e ADR-011. A estrutura inicial contém entidades, repositórios e migração de schema, mas os fluxos de negócio e a autenticação ainda precisam ser implementados. As demais táticas seguem registradas como propostas até serem confirmadas na implementação.
+
+No estado inicial, a configuração de segurança libera somente health e documentação OpenAPI e nega as demais rotas. A autenticação, emissão/validação de tokens e autorização efetiva por perfil serão adicionadas antes de expor endpoints de negócio.
 
 ## Estilo e organização
 

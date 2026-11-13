@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-ADRs (registros de decisões arquiteturais) documentam as táticas propostas, o contexto que as motiva, a decisão, consequências e requisitos relacionados. Cada registro é uma proposta documental; nenhuma decisão abaixo implica implementação.
+ADRs (registros de decisões arquiteturais) documentam contexto, decisão, consequências e requisitos relacionados. Os itens aceitos representam decisões; o status de implementação é descrito na própria documentação do projeto.
 
 | ADR | Tática | Status |
 | --- | --- | --- |
@@ -14,6 +14,7 @@ ADRs (registros de decisões arquiteturais) documentam as táticas propostas, o 
 | [ADR-008](ADR-008-portabilidade-e-adaptadores.md) | Configuração por ambiente e contratos agnósticos | Proposto |
 | [ADR-009](ADR-009-java-spring-react.md) | Java Spring Boot e React | Aceito |
 | [ADR-010](ADR-010-postgresql-testcontainers.md) | PostgreSQL em Testcontainers para CI | Aceito |
+| [ADR-011](ADR-011-neon-postgresql.md) | PostgreSQL gerenciado no Neon | Aceito |
 
 ## Convenção
 

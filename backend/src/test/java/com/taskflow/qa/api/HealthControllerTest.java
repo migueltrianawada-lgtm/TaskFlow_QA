@@ -24,4 +24,10 @@ class HealthControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("UP"));
     }
+
+    @Test
+    void deniesBusinessRoutesUntilAuthenticationIsImplemented() throws Exception {
+        mockMvc.perform(get("/api/v1/reservas"))
+                .andExpect(status().isForbidden());
+    }
 }
