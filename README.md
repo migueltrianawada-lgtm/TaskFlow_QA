@@ -2,7 +2,7 @@
 
 ## Aplicação
 
-Estrutura inicial composta por API Java 21 com Spring Boot e frontend React com Vite. O banco de dados físico ainda não foi escolhido; os contratos e decisões permanecem agnósticos conforme a arquitetura documentada.
+Estrutura inicial composta por API Java 21 com Spring Boot e frontend React com Vite. PostgreSQL gerenciado no Neon foi escolhido para persistência hospedada, mantendo os contratos desacoplados do provedor.
 
 ### Backend
 
@@ -16,7 +16,17 @@ cd backend
 
 O endpoint público de disponibilidade é `GET http://localhost:8080/api/health`. A documentação OpenAPI fica em `http://localhost:8080/swagger-ui.html`.
 
-O perfil local `dev` usa H2 em memória para validar o mapeamento JPA. Esse banco é descartável e exclusivo para desenvolvimento; o banco de produção ainda não foi escolhido. O PostgreSQL continua configurado somente para os testes de infraestrutura com Testcontainers.
+O perfil local `dev` usa H2 em memória, recriado a cada inicialização. Para conectar um projeto Neon, copie `backend/.env.example` para `backend/.env`, substitua os valores pelos dados de **Neon → Connect** e rode a API no perfil `prod`:
+
+```powershell
+cd backend
+Copy-Item .env.example .env
+# Edite .env localmente; não o envie ao Git.
+$env:SPRING_PROFILES_ACTIVE = "prod"
+.\mvnw.cmd spring-boot:run
+```
+
+O perfil `prod` exige `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME` e `SPRING_DATASOURCE_PASSWORD`, aplica as migrações Flyway e valida o schema com Hibernate. Use a URL JDBC oferecida/construída a partir da conexão Neon com `sslmode=require`; a senha fica somente no arquivo local ignorado pelo Git ou no gerenciador de segredos do ambiente de deploy. Não cole credenciais em issues, commits ou conversas. O plano gratuito é para desenvolvimento/demonstração e pode suspender bancos inativos; não representa garantia para a meta de 10.000 usuários simultâneos.
 
 ### Frontend
 
@@ -37,4 +47,4 @@ O frontend apresenta cinco telas navegáveis: login demonstrativo, painel inicia
 
 O backend separa API/DTOs, casos de uso, domínio, segurança e persistência. O modelo inicial inclui usuários e perfis, recursos, reservas e seus recursos associados, aprovações, bloqueios de manutenção, movimentações de materiais, auditoria, conflitos e notificações; os repositórios e contratos de serviço iniciam a organização das camadas.
 
-Esta etapa não implementa os fluxos completos de reserva, login/JWT, autorização funcional por perfil ou regras transacionais de concorrência. A segurança mantém o acesso negado por padrão: somente health e documentação OpenAPI são públicos até que a autenticação e as permissões sejam implementadas. Não existem usuários, senhas ou segredos de demonstração.
+Esta etapa não implementa os fluxos completos de reserva, login/JWT, autorização funcional por perfil ou regras transacionais de concorrência. A segurança mantém o acesso negado por padrão: somente health e documentação OpenAPI são públicos até que a autenticação e as permissões sejam implementadas. A migração cria os três perfis padrão, mas não cria contas ou senhas de demonstração.
