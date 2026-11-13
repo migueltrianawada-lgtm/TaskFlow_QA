@@ -20,10 +20,12 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - **Backend:** Java 21 e Spring Boot 3.5.7.
 - **Frontend:** React 19 e Vite 6.
 - **Testes:** JUnit/Spring Boot Test no backend; Vitest e Testing Library no frontend.
-- **Persistência física:** não selecionada; o backend inicial não se conecta a banco de dados.
+- **Persistência de produção:** não selecionada. O perfil local `dev` usa H2 em memória apenas para validar os mapeamentos JPA, sem definir a tecnologia de produção.
 - **Banco de integração de CI:** PostgreSQL 16 em Testcontainers, somente para validar inicialização e conectividade do ambiente de testes; isso não escolhe o banco de produção.
 
-As seleções estão registradas em ADR-009 e ADR-010. As demais táticas seguem registradas como propostas até serem confirmadas na implementação.
+As seleções estão registradas em ADR-009 e ADR-010. A estrutura inicial contém entidades de persistência e repositórios para os dados definidos na modelagem, mas os fluxos de negócio, a configuração de produção e a autenticação ainda precisam ser implementados. As demais táticas seguem registradas como propostas até serem confirmadas na implementação.
+
+No estado inicial, a configuração de segurança libera somente health e documentação OpenAPI e nega as demais rotas. A autenticação, emissão/validação de tokens e autorização efetiva por perfil serão adicionadas antes de expor endpoints de negócio.
 
 ## Estilo e organização
 

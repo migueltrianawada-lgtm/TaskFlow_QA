@@ -135,3 +135,7 @@ classDiagram
 - **Notificacao:** registro de notificação simulada ou integrada, incluindo estado de falha.
 
 Intervalos de reserva e bloqueio têm início anterior ao fim. Para salas e professores não pode haver reserva sobreposta. Para materiais/equipamentos, a soma de quantidades alocadas no intervalo não pode superar o estoque disponível. A validação e a gravação devem ser protegidas contra concorrência.
+
+## Mapeamento inicial no backend
+
+As entidades JPA espelham esse modelo lógico: perfis são entidades associadas a usuários por `UsuarioPerfil`; movimentações registram o tipo da operação e o Responsável; bloqueios guardam quem os criou; auditorias armazenam dados anteriores e novos; e notificações registram mensagem, estado e envio. O perfil local de desenvolvimento usa H2 em memória com schema recriado a cada inicialização. Esse mapeamento é provisório para desenvolvimento e não define a tecnologia de produção nem substitui futuras migrações controladas.
