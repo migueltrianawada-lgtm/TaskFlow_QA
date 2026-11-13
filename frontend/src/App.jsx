@@ -383,7 +383,7 @@ export default function App() {
       </aside>
       <div className="main-column">
         <header className="topbar"><div className="breadcrumb"><span>Início</span><span aria-hidden="true">/</span><strong>{navigation.find((item) => item.id === screen)?.label || "Gestão"}</strong></div><div className="topbar-actions"><button className="icon-button notification-button" aria-label="Notificações">♧<i /></button><span className="topbar-divider" /><button className="topbar-user" onClick={logout}><span className="profile-avatar">{user.name.slice(0, 1).toUpperCase()}</span><span>{user.role}</span><span aria-hidden="true">⌄</span></button></div></header>
-        <main className="page-content">
+        <main className="page-content" key={screen}>
           {screen === "dashboard" && <Dashboard user={user} reservations={reservations} approvals={approvals} onNavigate={setScreen} />}
           {screen === "resources" && <ResourcesScreen resources={resources} onReserve={reserveResource} />}
           {screen === "reservations" && <ReservationsScreen reservations={reservations} setReservations={setReservations} resources={resources} preselectedResource={preselectedResource} clearPreselection={() => setPreselectedResource(null)} />}
