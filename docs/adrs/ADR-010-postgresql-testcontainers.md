@@ -14,7 +14,7 @@ Usar PostgreSQL 16 em Testcontainers para testar o schema e as migrações do ba
 ## Consequências
 
 - O runner de CI precisa oferecer Docker compatível com Testcontainers; GitHub-hosted Ubuntu atende esse requisito.
-- Execução do teste de container requer Docker. O workflow executa o teste, mas a execução do CI candidato #43541031194 o ignorou ao não encontrar um ambiente Docker válido; a decisão ainda não está validada no pipeline.
+- Execução do teste de container requer Docker. O teste segue deliberadamente ignorado por decisão do grupo: Docker não está disponível no ambiente local e o runner do CI do PR #3 (#43541559873) não encontrou um ambiente Docker válido. Consequentemente, a integração PostgreSQL não foi validada no candidato; o CI verde não deve ser interpretado como essa validação.
 - O teste inicia o perfil `prod` após aplicar a migração, validando o schema também contra as entidades JPA; não cobre regras de reservas nem persistência dos casos de uso.
 
 ## Rastreabilidade

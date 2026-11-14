@@ -5,7 +5,7 @@
 
 ## Contexto
 
-O projeto precisa de um banco hospedado acessível para desenvolvimento e demonstração sem administrar um servidor próprio. O domínio e os requisitos incluem integridade relacional e transações para reservas; PostgreSQL já é usado na validação de integração com Testcontainers.
+O projeto precisa de um banco hospedado acessível para desenvolvimento e demonstração sem administrar um servidor próprio. O domínio e os requisitos incluem integridade relacional e transações para reservas. Testcontainers foi definido para validar integração, mas permanece ignorado no candidato atual por indisponibilidade de Docker.
 
 ## Decisão
 
@@ -17,7 +17,7 @@ O plano gratuito é destinado a desenvolvimento e demonstração. Ele pode suspe
 
 - Credenciais não são armazenadas no repositório. O arquivo local `backend/.env` é ignorado pelo Git; ambientes hospedados devem usar seu gerenciador de segredos.
 - A URL de conexão deve vir do painel Neon e usar TLS (`sslmode=require`); quando aplicável, usar o endpoint com pooler para aplicações.
-- O pipeline valida as migrações em PostgreSQL 16 via Testcontainers.
+- A validação de migrações em PostgreSQL 16 via Testcontainers está planejada, mas não foi executada no candidato atual; consulte ADR-010 e o registro de evidências.
 - Backups, limites do plano, disponibilidade e dimensionamento devem ser reavaliados antes de uma implantação de produção ou teste de carga.
 - A escolha do provedor não implementa os casos de uso nem as regras de concorrência de reserva.
 

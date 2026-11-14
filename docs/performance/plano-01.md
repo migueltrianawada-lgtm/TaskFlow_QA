@@ -30,4 +30,4 @@ O teste de aceitação completo deve usar um gerador de carga aprovado pela equi
 
 ## Estado
 
-O ensaio de 2.000 usuários ainda não foi executado. O resultado disponível está separado em `resultado-01.md` e não substitui esse teste.
+O ensaio de 2.000 usuários ainda não foi executado. Na inspeção atual, o host compartilhado tinha aproximadamente 0,8 GiB de memória livre e não havia ambiente isolado de teste de carga provisionado; o ensaio foi deliberadamente bloqueado para evitar pressão de recursos e impacto em outros processos. Não executar contra produção/Neon sem ambiente isolado e autorização. O resultado disponível está separado em `resultado-01.md` e não substitui esse teste.

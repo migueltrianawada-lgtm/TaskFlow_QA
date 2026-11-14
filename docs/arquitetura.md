@@ -22,11 +22,11 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - **Testes:** JUnit/Spring Boot Test no backend; Vitest e Testing Library no frontend.
 - **Persistência hospedada selecionada:** PostgreSQL gerenciado no Neon, configurado pelo perfil `prod` e variáveis externas; o banco local `dev` usa H2 em memória e descartável.
 - **Migrações:** Flyway versiona o schema PostgreSQL; o Hibernate valida o schema no perfil `prod`, sem alterá-lo automaticamente.
-- **Banco de integração pretendido:** PostgreSQL 16 em Testcontainers verifica migrações e schema; no CI do candidato, o teste foi ignorado porque o runner não encontrou um ambiente Docker válido.
+- **Banco de integração pretendido:** PostgreSQL 16 em Testcontainers verifica migrações e schema; esse teste permanece ignorado, conforme decisão do grupo. No CI do PR #3, o runner não encontrou um ambiente Docker válido.
 
 As seleções estão registradas em ADR-009, ADR-010 e ADR-011. O estado atual inclui fluxos de autenticação, autorização, gestão de recursos e reservas, auditoria, movimentações e relatórios; cobertura e lacunas de validação estão registradas na RTM e no relatório de qualidade.
 
-O teste PostgreSQL/Testcontainers não foi comprovado na execução de CI atual; resultados H2 não substituem a validação do banco PostgreSQL.
+O teste PostgreSQL/Testcontainers não foi executado: o Docker está indisponível neste ambiente local e o runner do GitHub Actions não apresentou um ambiente Docker válido. O teste segue ignorado por decisão do grupo; resultados H2 não substituem validação PostgreSQL.
 
 ## Estilo e organização
 

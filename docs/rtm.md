@@ -2,7 +2,7 @@
 
 ## Escopo e interpretação
 
-Esta matriz relaciona os requisitos funcionais com código, testes e evidências. O código indicado representa o estado local desta branch; ele ainda não está integrado à `main`. “Implementado” não significa que o requisito tenha cobertura automatizada suficiente ou esteja comprovado em produção. A cobertura BDD é rastreabilidade documental, não cobertura de código.
+Esta matriz relaciona os requisitos funcionais com código, testes e evidências. O código indicado representa o candidato no PR #3; ele ainda não está integrado à `main`. “Implementado” não significa que o requisito tenha cobertura automatizada suficiente ou esteja comprovado em produção. A cobertura BDD é rastreabilidade documental, não cobertura de código.
 
 | Requisito | Implementação principal | Verificação disponível | Estado da evidência |
 |---|---|---|---|
@@ -11,7 +11,7 @@ Esta matriz relaciona os requisitos funcionais com código, testes e evidências
 | RF-03 — pesquisa por atributos e disponibilidade | `api/RecursoController.java`; `application/RecursoServiceImpl.java` | Especificação BDD e consulta autenticada | Parcial; filtros/disponibilidade não foram validados integralmente por teste de aceitação |
 | RF-04 — criar, alterar e cancelar reservas | `api/ReservaController.java`; `application/ReservaServiceImpl.java` | `HealthControllerTest`: criação e rejeição de sobreposição; teste de concorrência | Parcial; aprovação, atualização, cancelamento e persistência PostgreSQL precisam de evidência dedicada |
 | RF-05 — sobreposição de recursos e docente | `application/ReservaServiceImpl.java`; `persistence/repository/ReservaRepository.java` | Testes de sobreposição de reserva | Parcial; conflitos de agenda docente e todos os tipos de recurso não estão cobertos de ponta a ponta |
-| RF-06 — impedir dupla reserva simultânea | `application/ReservaServiceImpl.java`; bloqueio pessimista em `RecursoRepository.java` | `simultaneousRequestsForOneResourceConfirmAtMostOneReservation` | Verificado em teste integrado H2; PostgreSQL/Testcontainers não executou neste ambiente por falta de Docker |
+| RF-06 — impedir dupla reserva simultânea | `application/ReservaServiceImpl.java`; bloqueio pessimista em `RecursoRepository.java` | `simultaneousRequestsForOneResourceConfirmAtMostOneReservation` | Verificado em teste integrado H2; PostgreSQL/Testcontainers segue ignorado por decisão do grupo: Docker indisponível localmente e runner do CI sem ambiente Docker válido |
 | RF-07 — aprovação de recurso restrito | `api/ReservaController.java`; `application/ReservaServiceImpl.java` | Cenários BDD especificados | Parcial; falta teste de aceitação de aprovação/recusa e autorização por perfil |
 | RF-08 — bloqueio de manutenção | `api/GestaoController.java`; `persistence/repository/BloqueioManutencaoRepository.java`; `application/ReservaServiceImpl.java` | Cenários BDD especificados | Parcial; falta validação integrada de bloqueio e conflito |
 | RF-09 — retirada e devolução de materiais | `api/GestaoController.java`; entidade e repositório de movimentações | Cenários BDD especificados | Parcial; falta teste de ponta a ponta dos limites de retirada/devolução |
@@ -26,8 +26,8 @@ Esta matriz relaciona os requisitos funcionais com código, testes e evidências
 | Requisito | Evidência disponível | Lacuna/limite |
 |---|---|---|
 | RNF-01/02 — adequação funcional e mensagens | Testes backend/frontend; RTM acima | Não há aceitação completa dos RFs nem validação de cada falha de integração |
-| RNF-03/05 — desempenho sob carga | Smoke local de 10 workers: 2.440 consultas, 0 falhas, p95 107,43 ms; `docs/performance/resultado-01.md` | A nova meta de 2.000 usuários simultâneos e a jornada frontend não foram validadas; o smoke local não pode ser extrapolado |
-| RNF-04/11 — concorrência e confiabilidade | Teste concorrente H2; transações no serviço | Falta repetição em PostgreSQL/Testcontainers e teste controlado de falha |
+| RNF-03/05 — desempenho sob carga | Smoke local de 10 workers: 2.440 consultas, 0 falhas, p95 107,43 ms; `docs/performance/resultado-01.md` | A meta de 2.000 usuários simultâneos e a jornada frontend não foram validadas. Ensaio não iniciado porque o host compartilhado tinha cerca de 0,8 GiB de memória livre e não há ambiente isolado provisionado; o smoke não pode ser extrapolado |
+| RNF-04/11 — concorrência e confiabilidade | Teste concorrente H2; transações no serviço | Teste PostgreSQL/Testcontainers deliberadamente ignorado conforme decisão do grupo; falta também teste controlado de falha |
 | RNF-06/08/10 — compatibilidade e responsividade | Build e testes automatizados frontend | Browsers e viewports definidos ainda não foram testados |
 | RNF-07/12 — comportamento de notificações | Adaptador simulado e persistência local | Indisponibilidade/integração externa não tem teste dedicado |
 | RNF-09/13/18 — usabilidade, auditoria e exposição | Mensagens de erro e gravação de auditoria implementadas | Falta revisão sistemática por perfil e evidência de acessibilidade |
