@@ -11,7 +11,7 @@ O projeto precisa de um banco hospedado acessível para desenvolvimento e demons
 
 Usar PostgreSQL gerenciado no Neon para persistência hospedada. A aplicação conecta por JDBC usando variáveis externas (`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME` e `SPRING_DATASOURCE_PASSWORD`), TLS obrigatório e o perfil Spring `prod`. Migrações Flyway versionam o schema; Hibernate apenas o valida nesse perfil. H2 em memória permanece disponível no perfil local `dev`.
 
-O plano gratuito é destinado a desenvolvimento e demonstração. Ele pode suspender projetos inativos e não é evidência de que o sistema cumpre a meta de 10.000 usuários simultâneos.
+O plano gratuito é destinado a desenvolvimento e demonstração. Ele pode suspender projetos inativos e não é evidência de que o sistema cumpre a meta de 2.000 usuários simultâneos.
 
 ## Consequências
 

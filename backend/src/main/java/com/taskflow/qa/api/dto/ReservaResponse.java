@@ -7,8 +7,10 @@ import java.util.List;
 public record ReservaResponse(
         Long id,
         Long solicitanteId,
+        String solicitanteNome,
         Instant inicio,
         Instant fim,
+        String finalidade,
         StatusReserva status,
-        List<Long> recursoIds) {
+        List<RecursoResponse> recursos) {
 }

@@ -11,5 +11,6 @@ public record RecursoResponse(
         Integer capacidade,
         Integer quantidadeTotal,
         boolean restrito,
-        boolean ativo) {
+        boolean ativo,
+        Integer quantidadeReservada) {
 }

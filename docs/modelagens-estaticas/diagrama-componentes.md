@@ -2,7 +2,7 @@
 
 ## Escopo
 
-Arquitetura lógica MVC agnóstica a linguagem, framework, protocolo, banco de dados e infraestrutura. O diagrama cobre os componentes necessários aos requisitos funcionais e não funcionais documentados.
+O diagrama representa a implementação TaskFlow deste candidato local. A arquitetura documentada ainda precisa ser confirmada no commit integrado à `main`.
 
 ```mermaid
 flowchart LR
@@ -10,90 +10,80 @@ flowchart LR
     RES[Responsável]
     ADM[Administrador]
 
-    subgraph FRONT["Frontend"]
+    subgraph FRONT["Frontend — React/Vite"]
         UI[Interface web responsiva]
-        CLIENT[Cliente de contratos públicos]
-        DOCVIEW[Visualizador de fluxos e documentação pública]
-        UI --> CLIENT
-        UI --> DOCVIEW
+        APIJS[Cliente HTTP<br/>frontend/src/api.js]
+        UI --> APIJS
     end
 
-    subgraph APP["Aplicação MVC"]
-        ENTRY[Camada de entrada e validação]
-        AUTH[Autenticação e autorização]
-        CTRL[Controllers]
-        USECASES[Casos de uso]
-        DOMAIN[Model e regras de negócio]
-        REPORT[Serviço de relatórios]
-        AUDIT[Serviço de auditoria]
-        NOTIFY[Serviço de notificação]
-        ENTRY --> AUTH
-        ENTRY --> CTRL
-        CTRL --> USECASES
-        USECASES --> DOMAIN
-        USECASES --> REPORT
-        USECASES --> AUDIT
-        USECASES --> NOTIFY
-        REPORT --> DOMAIN
-        DOMAIN --> AUDIT
+    subgraph BACK["Backend — Java 21 / Spring Boot"]
+        SEC[Spring Security<br/>JWT Bearer e perfis]
+        AUTH[AuthController]
+        RESOURCE[RecursoController]
+        BOOKING[ReservaController]
+        ADMIN[GestaoController]
+        RS[RecursoServiceImpl]
+        BS[ReservaServiceImpl]
+        AUDIT[AuditoriaService]
+        NOTICE[NotificacaoService<br/>simulada]
+        CONFLICT[RegistroConflitoService]
+        REPOS[Spring Data JPA repositories]
+        ENTITIES[Entidades e regras de domínio]
+
+        SEC --> AUTH
+        SEC --> RESOURCE
+        SEC --> BOOKING
+        SEC --> ADMIN
+        RESOURCE --> RS
+        BOOKING --> BS
+        ADMIN --> AUDIT
+        ADMIN --> NOTICE
+        BS --> AUDIT
+        BS --> NOTICE
+        BS --> CONFLICT
+        RS --> REPOS
+        BS --> REPOS
+        AUDIT --> REPOS
+        NOTICE --> REPOS
+        CONFLICT --> REPOS
+        REPOS --> ENTITIES
     end
 
-    subgraph PORTS["Contratos e adaptadores agnósticos"]
-        REPOS[Contratos de repositório]
-        NOTIFYPORT[Contrato de notificação]
-        SIM[Adaptador simulador]
-        EXT[Adaptador de integração externa]
-        APIREF[Contrato e documentação da API]
-        NOTIFY --> NOTIFYPORT
-        NOTIFYPORT --> SIM
-        NOTIFYPORT --> EXT
+    subgraph DATA["Persistência configurada por perfil"]
+        H2[(H2 em memória<br/>dev/testes)]
+        PG[(PostgreSQL / Neon<br/>perfil prod)]
     end
 
-    subgraph DATA["Persistência lógica"]
-        DB[(Repositório persistente)]
-        USERDATA[Usuários e perfis]
-        RESDATA[Recursos e reservas]
-        MAINTDATA[Bloqueios e movimentações]
-        AUDITDATA[Auditoria e eventos de conflito]
-        NOTIFDATA[Notificações]
-        DB --- USERDATA
-        DB --- RESDATA
-        DB --- MAINTDATA
-        DB --- AUDITDATA
-        DB --- NOTIFDATA
-    end
+    SPEC[OpenAPI / Swagger]
+    CI[GitHub Actions<br/>Maven, frontend, JaCoCo]
 
     SOL --> UI
     RES --> UI
     ADM --> UI
-    CLIENT --> ENTRY
-    DOCVIEW --> APIREF
-    CTRL --> REPOS
-    DOMAIN --> REPOS
-    REPORT --> REPOS
-    AUDIT --> REPOS
-    NOTIFY --> REPOS
-    REPOS --> DB
+    APIJS --> SEC
+    REPOS --> H2
+    REPOS --> PG
+    AUTH -. documentação .-> SPEC
+    RESOURCE -. documentação .-> SPEC
+    BOOKING -. documentação .-> SPEC
+    ADMIN -. documentação .-> SPEC
+    CI -. valida e publica artifact JaCoCo .-> BACK
 ```
 
 ## Responsabilidades e limites
 
-- **Frontend:** apresenta os fluxos de consulta, gestão, reserva, aprovação, manutenção, movimentação e relatórios; informa estados e erros. A interface não substitui autorização e validação no servidor.
-- **Camada de entrada:** recebe operações, valida sua estrutura e encaminha os pedidos aos Controllers.
-- **Autenticação e autorização:** identifica a sessão e autoriza cada operação por perfil e contexto do recurso.
-- **Controllers:** adaptam solicitações e respostas da interface aos casos de uso; não implementam regras de conflito ou acesso a dados.
-- **Casos de uso:** coordenam os fluxos e as transações que envolvem domínio, persistência, auditoria e notificações.
-- **Model e regras de negócio:** aplicam as regras de disponibilidade, sobreposição, concorrência, aprovação, manutenção, estoque e movimentação.
-- **Repositórios:** isolam as operações de leitura e gravação do mecanismo físico de persistência.
-- **Auditoria:** registra ator, operação, entidade afetada e data/hora de maneira associada à operação de negócio.
-- **Relatórios:** consultam dados filtrados para utilização, carga horária e conflitos evitados.
-- **Notificação:** usa o adaptador simulado ou externo; falhas são registradas e não desfazem reservas válidas.
-- **Contrato/API e documentação:** descrevem os fluxos públicos e suas entradas, respostas, erros e requisitos de autorização.
-- **Persistência lógica:** agrupa os dados descritos no diagrama de classes estático de entidades.
+- **Interface React:** apresenta os fluxos e erros retornados pela API; não substitui autenticação, autorização ou validação no servidor.
+- **Spring Security e JWT:** valida token e perfil nas operações protegidas.
+- **Controllers:** adaptam contratos HTTP e encaminham operações aos serviços.
+- **Serviços de aplicação:** coordenam regras de recursos, reservas, auditoria, notificação simulada e registro de conflitos.
+- **Spring Data JPA e entidades:** realizam persistência e representam recursos, reservas, usuários e eventos relacionados.
+- **Persistência:** H2 é usada no perfil local; PostgreSQL/Neon é selecionado por configuração no perfil `prod`. Nenhuma conta inicial é criada no Neon.
+- **OpenAPI/Swagger:** publica contratos; não participa da execução dos fluxos.
+- **GitHub Actions:** executa validações automatizadas e, após sucesso do Maven, publica `jacoco-report` como artifact. A execução que comprovar a entrega ainda precisa corresponder ao SHA da tag.
 
-## Restrições arquiteturais
+## Restrições observadas
 
-- Nenhum componente depende de fabricante, framework, linguagem, serviço de nuvem ou banco de dados específico.
-- A validação de acesso, entradas e regras de negócio ocorre no servidor, mesmo que o frontend também apresente validações de usabilidade.
-- Verificação de disponibilidade e gravação de uma alocação concorrente devem ocorrer com garantias transacionais.
-- A gravação da operação de negócio e da respectiva auditoria deve manter consistência.
+- A autorização efetiva ocorre no backend mesmo quando a interface oculta ações.
+- A criação da reserva usa transação e bloqueio das linhas de recursos selecionados, seguida da verificação de reservas e manutenção.
+- Notificações são simuladas e persistidas; não há adaptador externo ativo.
+- O teste local de concorrência em H2 não comprova desempenho nem comportamento PostgreSQL sob carga de produção.

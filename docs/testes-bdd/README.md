@@ -24,7 +24,7 @@ Os arquivos `.feature` desta pasta descrevem cenários de aceitação em Gherkin
 
 Os cenários de `fundacao-implementada.feature` são executados com Cucumber contra a regra de domínio de sobreposição. Os outros arquivos são critérios especificados, mas ainda não estão conectados a passos executáveis porque os fluxos de negócio correspondentes não existem na aplicação. Portanto, cobertura total das tags significa **rastreabilidade documental dos RFs/RNFs**, não cobertura de código medida nem validação funcional completa.
 
-Os cenários de carga com 10.000 usuários e validações dependentes de navegadores/ambientes são marcados para execução controlada, não para testes unitários locais.
+Os cenários de carga com 2.000 usuários e validações dependentes de navegadores/ambientes são marcados para execução controlada, não para testes unitários locais.
 
 ## Ambiente informado
 

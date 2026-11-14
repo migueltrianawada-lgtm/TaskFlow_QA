@@ -8,4 +8,6 @@ public interface AuditoriaRepository extends JpaRepository<AuditoriaEntity, Long
 
     List<AuditoriaEntity> findByTipoEntidadeAndEntidadeIdOrderByOcorridaEmDesc(
             String tipoEntidade, Long entidadeId);
+
+    List<AuditoriaEntity> findTop100ByOrderByOcorridaEmDesc();
 }

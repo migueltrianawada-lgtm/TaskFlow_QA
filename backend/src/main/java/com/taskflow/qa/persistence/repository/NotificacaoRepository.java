@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface NotificacaoRepository extends JpaRepository<NotificacaoEntity, Long> {
 
     List<NotificacaoEntity> findByReservaIdOrderByCriadaEmDesc(Long reservaId);
+
+    List<NotificacaoEntity> findByDestinatarioIdOrderByCriadaEmDesc(Long destinatarioId);
 }

@@ -72,5 +72,5 @@ Relatório gerado automaticamente por `scripts/report-bdd-coverage.mjs`, contand
 
 - A suíte Cucumber executa somente cenários marcados `@executavel`; demais arquivos especificam critérios para fluxos ainda não implementados.
 - Os testes do PostgreSQL Testcontainers verificam a infraestrutura de teste e conectividade SQL. Não representam cobertura de persistência de negócio.
-- A validação de 10.000 usuários simultâneos, navegadores, viewports e métricas ponta a ponta requer ambiente/carga controlados; este relatório não afirma que esses testes foram executados.
+- A validação de 2.000 usuários simultâneos, navegadores, viewports e métricas ponta a ponta requer ambiente/carga controlados; este relatório não afirma que esses testes foram executados.
 - Para elevar a cobertura executável, implementar os RFs, adicionar passos Cucumber ligados aos casos de uso reais e medir cobertura de código separadamente.

@@ -1,6 +1,6 @@
 # Modelagens dinâmicas — sequências dos requisitos funcionais
 
-Cada RF possui um diagrama de sequência próprio. Os requisitos não funcionais relacionados estão indicados junto a cada fluxo; os códigos e textos completos estão em `../requisitos-nao-funcionais.md`. As interações são lógicas e agnósticas a tecnologias.
+Cada RF possui um diagrama de sequência próprio. Os requisitos não funcionais relacionados estão indicados junto a cada fluxo; os códigos e textos completos estão em `../requisitos-nao-funcionais.md`. Os diagramas descrevem o fluxo lógico; a implementação correspondente usa React/Vite, Spring Boot, JWT, Spring Data JPA e H2/PostgreSQL. Os principais endpoints e classes estão em `../rtm.md`. Os diagramas não implicam que todos os fluxos já tenham teste de aceitação executável.
 
 ## RF-01 — Autenticação e autorização por perfil
 

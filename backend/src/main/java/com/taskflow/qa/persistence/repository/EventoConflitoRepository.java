@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface EventoConflitoRepository extends JpaRepository<EventoConflitoEntity, Long> {
 
     List<EventoConflitoEntity> findByRecursoIdOrderByRegistradoEmDesc(Long recursoId);
+
+    long count();
 }

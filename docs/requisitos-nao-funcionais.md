@@ -34,9 +34,11 @@ Todos os requisitos indicam os requisitos funcionais relacionados e as personas 
 
 ## 2. Eficiência de desempenho
 
-- **RNF-03:** Em teste controlado com **10.000 usuários simultâneos autenticados**, executando uma carga representativa dos RFs 01 a 13, pelo menos 95% das consultas de disponibilidade devem responder em até 2 segundos e pelo menos 95% das demais operações interativas devem responder em até 3 segundos, medidos da ação no frontend até a resposta renderizada. A taxa de erros técnicos ou timeouts deve ser inferior a 1%. O relatório do teste deve registrar duração, distribuição de carga, dados utilizados, latências percentis e erros. **Relaciona:** RF-01 a RF-13, especialmente RF-03, RF-04, RF-09 e RF-12. **Personas:** SOL, RES, ADM.
+> Meta revisada pelo grupo para 2.000 usuários simultâneos nesta versão dos requisitos. A evidência de teste deve ser coletada para esse alvo; o smoke local de 10 usuários não o comprova.
+
+- **RNF-03:** Em teste controlado com **2.000 usuários simultâneos autenticados**, executando uma carga representativa dos RFs 01 a 13, pelo menos 95% das consultas de disponibilidade devem responder em até 2 segundos e pelo menos 95% das demais operações interativas devem responder em até 3 segundos, medidos da ação no frontend até a resposta renderizada. A taxa de erros técnicos ou timeouts deve ser inferior a 1%. O relatório do teste deve registrar duração, distribuição de carga, dados utilizados, latências percentis e erros. **Relaciona:** RF-01 a RF-13, especialmente RF-03, RF-04, RF-09 e RF-12. **Personas:** SOL, RES, ADM.
 - **RNF-04:** Sob solicitações concorrentes para o mesmo recurso e intervalo, o sistema deve confirmar no máximo uma alocação incompatível; todas as demais devem receber resposta de conflito sem criar alocações parciais. **Verificação:** teste de concorrência automatizado e inspeção dos dados persistidos. **Relaciona:** RF-04, RF-05 e RF-06. **Personas:** SOL, RES, ADM.
-- **RNF-05:** Com 10.000 usuários simultâneos no perfil de carga definido para o RNF-03, pelo menos 95% dos relatórios devem ser apresentados em até 5 segundos e refletir os filtros informados. **Relaciona:** RF-03 e RF-12. **Personas:** RES, ADM.
+- **RNF-05:** Com 2.000 usuários simultâneos no perfil de carga definido para o RNF-03, pelo menos 95% dos relatórios devem ser apresentados em até 5 segundos e refletir os filtros informados. **Relaciona:** RF-03 e RF-12. **Personas:** RES, ADM.
 
 ## 3. Compatibilidade
 
@@ -73,10 +75,10 @@ Todos os requisitos indicam os requisitos funcionais relacionados e as personas 
 
 - **RNF-22:** A aplicação deve ser executável nos ambientes de desenvolvimento, teste controlado e produção sem alteração do código-fonte; diferenças devem ser externas ao código e documentadas. A interface deve preservar os fluxos principais nos navegadores definidos no RNF-06. **Verificação:** implantação e execução da suíte de fumaça em cada ambiente. **Relaciona:** RF-01 a RF-14. **Personas:** SOL, RES, ADM.
 
-## Perfil do teste controlado de 10.000 usuários simultâneos
+## Perfil do teste controlado de 2.000 usuários simultâneos
 
 - O teste de carga deve representar os perfis e fluxos reais: consultas e reservas do Solicitante, aprovações e movimentações do Responsável, e consultas/gestão do Administrador.
-- A carga simultânea significa usuários com sessões ativas realizando operações no período do teste; não significa apenas 10.000 contas cadastradas.
+- A carga simultânea significa usuários com sessões ativas realizando operações no período do teste; não significa apenas 2.000 contas cadastradas.
 - O cenário deve incluir pesquisas por disponibilidade, tentativas concorrentes sobre recursos coincidentes, consultas de relatórios, operações de aprovação e uso das telas frontend.
 - O relatório deve registrar ambiente, configuração, dados de teste, duração, distribuição das operações, latências p50/p95/p99, taxa de erros/timeouts e resultado por perfil.
 - O teste deve verificar consistência após a execução: ausência de dupla reserva, alocações parciais ou divergência entre estado exibido pela interface e estado persistido.

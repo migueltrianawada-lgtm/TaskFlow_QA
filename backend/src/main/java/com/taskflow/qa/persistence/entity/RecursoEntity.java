@@ -118,6 +118,19 @@ public class RecursoEntity {
         this.ativo = ativo;
     }
 
+    public void atualizar(String nome, TipoRecurso tipo, String localizacao, String competencia,
+                          Integer capacidade, Integer quantidadeTotal, boolean restrito,
+                          UsuarioEntity docente) {
+        this.nome = Objects.requireNonNull(nome, "nome é obrigatório").trim();
+        this.tipo = Objects.requireNonNull(tipo, "tipo é obrigatório");
+        this.localizacao = localizacao;
+        this.competencia = competencia;
+        this.capacidade = capacidade;
+        this.quantidadeTotal = quantidadeTotal;
+        this.restrito = restrito;
+        this.docente = docente;
+    }
+
     @AssertTrue(message = "Os atributos do recurso devem corresponder ao tipo")
     private boolean isAtributosCompativeisComTipo() {
         if (tipo == null) {

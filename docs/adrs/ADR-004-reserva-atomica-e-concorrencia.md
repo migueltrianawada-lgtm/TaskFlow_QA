@@ -18,7 +18,7 @@ Em caso de conflito, rejeitar a solicitação sem alocação parcial e devolver 
 - A camada de persistência é parte da garantia de não haver dupla reserva.
 - Solicitações concorrentes podem aguardar ou receber conflito, conforme o mecanismo escolhido, mas não podem ambas confirmar uma alocação incompatível.
 - Testes de concorrência e falha precisam verificar tanto a resposta como o estado persistido final.
-- O desempenho em 10.000 usuários simultâneos deve ser medido; a estratégia concreta não pode ser presumida antes dessa medição.
+- O desempenho em 2.000 usuários simultâneos deve ser medido; a estratégia concreta não pode ser presumida antes dessa medição.
 
 ## Rastreabilidade
 

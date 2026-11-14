@@ -5,7 +5,7 @@
 
 ## Contexto
 
-Pesquisa de disponibilidade e relatórios precisam responder em uso interativo e no cenário de teste com 10.000 usuários simultâneos. O relatório de conflitos evitados requer evidência das tentativas rejeitadas, não apenas reservas confirmadas.
+Pesquisa de disponibilidade e relatórios precisam responder em uso interativo e no cenário de teste com 2.000 usuários simultâneos. O relatório de conflitos evitados requer evidência das tentativas rejeitadas, não apenas reservas confirmadas.
 
 ## Decisão
 

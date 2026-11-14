@@ -12,7 +12,7 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - Evitar sobreposição e dupla reserva, inclusive sob solicitações simultâneas.
 - Preservar a consistência de reservas, aprovações, movimentações e auditoria.
 - Suportar frontend responsivo e contratos públicos documentados.
-- Atender a meta de teste controlado com 10.000 usuários simultâneos especificada nos RNFs.
+- Atender a meta de teste controlado com 2.000 usuários simultâneos especificada nos RNFs.
 - Permitir evolução e substituição de tecnologias sem acoplar o domínio a fornecedores.
 
 ## Stack selecionada para a espinha dorsal
@@ -88,7 +88,7 @@ As táticas abaixo são decisões propostas e cada uma possui um ADR em [`adrs/`
 ## Qualidades e validação arquitetural
 
 - **Adequação funcional:** validar cada caso de uso contra os RFs numerados e verificar estado persistido e resposta apresentada.
-- **Desempenho:** executar o perfil controlado de 10.000 usuários simultâneos; reportar p50/p95/p99, erros, timeouts e tempos medidos na interface.
+- **Desempenho:** executar o perfil controlado de 2.000 usuários simultâneos; reportar p50/p95/p99, erros, timeouts e tempos medidos na interface.
 - **Compatibilidade e usabilidade:** executar fluxos nos navegadores definidos e nos viewports de 360 px, 768 px e 1280 px.
 - **Confiabilidade:** injetar falhas nos fluxos transacionais e de notificação; confirmar ausência de registros parciais e de estado falso de sucesso.
 - **Segurança:** validar permissões por perfil, escopo de reservas, proteção de credenciais, validação no servidor e ausência de detalhes internos nas respostas.
