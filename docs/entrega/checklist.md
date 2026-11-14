@@ -7,8 +7,8 @@
 - Clone limpo da referência: concluído; o clone permaneceu sem alterações rastreadas.
 - Reprodução no clone: `backend/.mvnw.cmd -B --no-transfer-progress verify` passou; API iniciou e `GET /api/health` retornou `{"status":"UP"}`. `npm ci`, 7 testes frontend, `npm run build` e `npm run dev` passaram.
 - Limitações da referência: sem Docker, Testcontainers foi ignorado localmente; o Maven reportou 48 testes ignorados, inclusive cenários BDD não executáveis.
-- Estado atual: PRs [#3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) e [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4) integrados. `main` em `2ff104ef8e03a9550508f332a523986a9a600751`; ainda não há tag.
-- CI na `main`: [run #43552739034](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034) passou e publicou artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096622744) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096522932). `PostgresContainerTest` continua ignorado conforme orientação da responsável: não há Docker local nem ambiente Docker válido no runner.
+- Estado atual: PRs [#3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3), [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4) e [#5](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/5) integrados. `main` em `18c267cdef5e7af318b201a5132e8e22f5b6ef01`; ainda não há tag.
+- CI na `main`: [run #43553788543](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543) passou e publicou artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543/artifacts/14097351626) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543/artifacts/14097376625). `PostgresContainerTest` continua ignorado conforme orientação da responsável: não há Docker local nem ambiente Docker válido no runner.
 
 ## Inventário atualizado
 
@@ -24,8 +24,8 @@
 | Diagrama de componentes | Sim | Atualizado para React/Spring Boot/JPA e perfis de banco | `docs/modelagens-estaticas/diagrama-componentes.md` |
 | Sequências críticas | Sim | Diagramas existentes; mapeamento e limites de teste indicados | `docs/modelagens-dinamicas/sequencias-requisitos-funcionais.md` |
 | Plano/cenários e relatório de testes | Parcial | 3 de 59 cenários BDD executáveis; cobertura BDD não equivale à cobertura de código | `docs/testes-bdd/` |
-| Pipeline de CI | Sim | CI público passou no commit atual da `main` | [Run #43552739034](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034) |
-| Relatório JaCoCo | Sim | Artifact gerado pelo CI do SHA atual da `main` | [Artifact JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096622744) |
+| Pipeline de CI | Sim | CI público passou no commit atual da `main` | [Run #43553788543](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543) |
+| Relatório JaCoCo | Sim | Artifact gerado pelo CI do SHA atual da `main` | [Artifact JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543/artifacts/14097351626) |
 | SonarCloud / Quality Gate | Não executado | Workflow não contém etapa Sonar; não há secrets/variables de Actions nem variáveis de ambiente Sonar disponíveis; falta token e configuração do projeto | Sem análise/link confirmado; requer configuração e credencial autorizada |
 | Plano e resultado de teste de carga | Sim | Ensaio local exploratório com 2.000 usuários: 0% de erros, p95 2.688,28 ms (acima do limite de 2 s); não aprova RNF-03/RNF-05 | `docs/performance/` |
 | Registro de defeitos | Sim | Rascunho inicial com defeitos, lacunas e riscos | `docs/defeitos/registro-01.md` |

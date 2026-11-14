@@ -96,10 +96,10 @@ ${tableRows(nonFunctional)}
 
 ## Limites e próximos critérios de cobertura
 
-- A suíte Cucumber executa somente cenários marcados \`@executavel\`; demais arquivos especificam critérios para fluxos ainda não implementados.
+- A suíte Cucumber executa somente cenários marcados \`@executavel\`; os demais cenários ainda não estão conectados a passos BDD executáveis. Isso não determina, por si só, se a funcionalidade correspondente existe no código.
 - Os testes do PostgreSQL Testcontainers verificam a infraestrutura de teste e conectividade SQL. Não representam cobertura de persistência de negócio.
-- A validação de 10.000 usuários simultâneos, navegadores, viewports e métricas ponta a ponta requer ambiente/carga controlados; este relatório não afirma que esses testes foram executados.
-- Para elevar a cobertura executável, implementar os RFs, adicionar passos Cucumber ligados aos casos de uso reais e medir cobertura de código separadamente.
+- O ensaio exploratório local de 2.000 usuários, limitado a GET de disponibilidade na API com H2, está documentado em \`docs/performance/resultado-01.md\`; não substitui o teste de aceitação definido no plano. Testes em navegador, viewports e métricas ponta a ponta requerem automação e ambiente controlado.
+- Para elevar a cobertura executável, conectar os cenários a passos Cucumber ligados aos casos de uso e medir cobertura de código separadamente.
 `;
 
 await writeFile(output, report, "utf8");
