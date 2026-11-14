@@ -2,7 +2,7 @@
 
 ## Escopo
 
-O diagrama representa a implementação TaskFlow integrada à `main` no SHA `2ff104ef8e03a9550508f332a523986a9a600751`; a CI desse commit passou.
+O diagrama representa a implementação TaskFlow integrada à `main` no SHA `18c267cdef5e7af318b201a5132e8e22f5b6ef01`; a CI desse commit passou.
 
 ```mermaid
 flowchart LR

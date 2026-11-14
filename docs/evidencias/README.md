@@ -5,10 +5,10 @@
 ## Identificação do candidato
 
 - Repositório: https://github.com/migueltrianawada-lgtm/TaskFlow_QA
-- Pull requests: [#3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) e [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4), ambos integrados.
-- SHA atual da `main` verificado: `2ff104ef8e03a9550508f332a523986a9a600751`.
-- CI da `main`: [run #43552739034 — sucesso](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034).
-- Artifacts desse CI: [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096622744) e [rastreabilidade BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096522932).
+- Pull requests: [#3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3), [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4) e [#5](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/5), todos integrados.
+- SHA atual da `main` verificado: `18c267cdef5e7af318b201a5132e8e22f5b6ef01`.
+- CI da `main`: [run #43553788543 — sucesso](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543).
+- Artifacts desse CI: [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543/artifacts/14097351626) e [rastreabilidade BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43553788543/artifacts/14097376625).
 - Tag de release: **pendente**. Criar `v1.0.0-rc1` somente após a decisão final de qualidade; se houver correção após usar uma tag, criar uma nova versão.
 - Quality Gate SonarCloud do SHA: **pendente de configuração/execução**; não há link verificado.
 
@@ -22,6 +22,7 @@ O `PostgresContainerTest` permanece deliberadamente ignorado, conforme orientaç
 - [Registro de defeitos e lacunas](../defeitos/registro-01.md)
 - [Relatório de qualidade](../relatorio-qualidade.md)
 - [Relatório BDD](../testes-bdd/relatorio-cobertura.md)
+- [Inventário de testes executados e pendentes](inventario-testes.md)
 - [README e fluxos da API](../../README.md)
 
 ## Pendências de entrega
