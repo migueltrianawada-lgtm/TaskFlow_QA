@@ -1,15 +1,18 @@
-# Índice do pacote de evidências — rascunho
+# Índice do pacote de evidências — candidato
 
-> **Não é índice de release final.** As alterações ainda estão em branch local, sem commit integrado, tag ou execução de CI correspondente. Todos os links/artefatos de aceitação devem ser substituídos ou confirmados para o SHA exato da tag avaliada. Não usar a execução de baseline abaixo como evidência da tag.
+> **Não é índice de release final.** O candidato está commitado e enviado à branch de trabalho, mas ainda não foi integrado à `main` nem marcado com tag. Os links/artefatos abaixo comprovam somente a execução nessa branch; não usar como evidência de uma tag futura.
 
-## Identificação pendente
+## Identificação do candidato
 
 - Repositório: https://github.com/migueltrianawada-lgtm/TaskFlow_QA
-- Tag avaliada: **pendente** (`v1.0.0-rc1` somente após integração e CI verde; se houver correção após uso da tag, criar `v1.0.0-rc2`).
-- SHA da tag: **pendente**.
-- Execução de CI do SHA da tag: **pendente**.
-- Artifact JaCoCo da execução: **pendente**.
+- Branch: `miguelpalacios1987-documentacao-projeto`.
+- SHA do candidato enviado: `1a623c785daaabbdb1f5ba29b0da7d50785f410f`.
+- CI dessa branch: [run #43541031194 — sucesso](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194).
+- Artifacts dessa execução: [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194/artifacts/14092062221) e [rastreabilidade BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194/artifacts/14091987167).
+- Tag avaliada e SHA integrado na `main`: **pendentes**. Criar `v1.0.0-rc1` somente após integração e CI verde; se houver correção após uso da tag, criar `v1.0.0-rc2`.
 - Quality Gate SonarCloud do SHA: **pendente de configuração/execução**; não há link verificado.
+
+O CI da branch terminou verde, mas o log registra que `PostgresContainerTest` foi ignorado porque o runner não encontrou um ambiente Docker válido. O sucesso do workflow não comprova a validação PostgreSQL/Testcontainers.
 
 ## Evidências versionadas
 
@@ -21,11 +24,12 @@
 - [Relatório BDD](../testes-bdd/relatorio-cobertura.md)
 - [README e fluxos da API](../../README.md)
 
-## Artefatos a anexar após a integração
+## Evidências finais ainda necessárias
 
-1. Link de uma execução CI verde cujo SHA seja exatamente o SHA da tag.
-2. Artifact `jacoco-report` obtido nessa mesma execução; conferir se contém `index.html`.
-3. Link do Quality Gate SonarCloud relativo ao mesmo SHA, caso o serviço esteja configurado.
-4. Este índice, `docs/rtm.md`, `docs/performance/resultado-01.md`, `docs/defeitos/` e `docs/relatorio-qualidade.md` versionados no mesmo SHA.
+1. Integrar o candidato à `main` e registrar o SHA resultante.
+2. Link de uma execução CI verde e artifact `jacoco-report` para o SHA integrado/tag; conferir se contém `index.html`.
+3. Executar PostgreSQL/Testcontainers em runner com Docker disponível e registrar o resultado.
+4. Link do Quality Gate SonarCloud relativo ao mesmo SHA, caso o serviço esteja configurado.
+5. Versionar este índice, `docs/rtm.md`, `docs/performance/resultado-01.md`, `docs/defeitos/` e `docs/relatorio-qualidade.md` no SHA final.
 
 Nenhum placeholder nesta página constitui evidência de aprovação. Revalidar os links antes do envio.

@@ -4,7 +4,7 @@
 
 ## Decisão atual
 
-**Bloquear a entrega da release candidate neste momento.** O estado local contém implementação e documentação em preparação, mas não há commit integrado/tag com CI verde que comprove esse conteúdo. A decisão deve ser reavaliada após todas as evidências serem vinculadas ao mesmo SHA da tag.
+**Bloquear a entrega da release candidate neste momento.** O candidato foi commitado e enviado à branch de trabalho, e o CI dessa branch terminou verde; ainda não há integração à `main`, tag, validação PostgreSQL/Testcontainers ou teste de carga de 2.000 usuários. A decisão deve ser reavaliada após as evidências finais serem vinculadas ao mesmo SHA da tag.
 
 ## Critérios e evidências
 
@@ -12,8 +12,8 @@
 |---|---|---|
 | Reprodutibilidade em clone limpo | Baseline `main` `4a92eb9` reproduz Maven, frontend e smoke, mas não contém as alterações locais | Não atende ao candidato atual |
 | Requisitos funcionais e testes | Código local, RTM e testes locais; BDD: 3/59 executáveis | Parcial; não liberar |
-| CI no commit avaliado | Run #43523400331 verde apenas no baseline, SHA `4a92eb9` | Pendente para candidato/tag |
-| Cobertura JaCoCo | Plugin adicionado e artifact configurado no workflow; nenhum CI do candidato publicou artifact | Pendente |
+| CI no commit avaliado | [Run #43541031194](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194) verde na branch candidata, SHA `1a623c785daaabbdb1f5ba29b0da7d50785f410f`; artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194/artifacts/14092062221) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194/artifacts/14091987167) | Candidato validado em CI; falta executar no SHA integrado/tag. Testcontainers foi ignorado por ausência de Docker válido no runner |
+| Cobertura JaCoCo | Artifact JaCoCo publicado no CI da branch candidata | Disponível para candidato; falta conferir no SHA integrado/tag |
 | SonarCloud Quality Gate | Não há link ou resultado confirmado; consulta de secrets/variables recebeu HTTP 403 | Pendente, sem inferir ausência de configuração |
 | Desempenho | Smoke local com 10 workers e 2.440 leituras; teste de 2.000 usuários não executado | Não atende/comprova RNF-03/RNF-05; smoke limitado descrito em `docs/performance/resultado-01.md` |
 | Banco de produção e acesso inicial | Perfis H2/PostgreSQL documentados; Neon sem provisionamento inicial de Administrador | Risco operacional aberto; produção não demonstrada |
@@ -25,7 +25,7 @@
 |---|---|---|---|
 | Meta de 2.000 usuários não medida | Capacidade e latência do serviço desconhecidas; pode impedir uso pretendido | Não aceito; executar teste em ambiente controlado ou registrar decisão formal da responsável | Miguel Palacios — único integrante |
 | Sem procedimento privado para criar primeiro Administrador no Neon | Usuários de produção não conseguem acessar o sistema | Não aceito; definir e testar procedimento seguro antes de produção | Miguel Palacios — único integrante |
-| Testcontainers/PostgreSQL não executado localmente | Diferenças entre H2 e PostgreSQL podem não ser detectadas | Pendente; executar no CI/Docker ou ambiente equivalente | Miguel Palacios — único integrante |
+| Testcontainers/PostgreSQL ignorado localmente e no CI da branch | Diferenças entre H2 e PostgreSQL podem não ser detectadas | Pendente; disponibilizar Docker compatível no runner e confirmar teste executado | Miguel Palacios — único integrante |
 | Configuração SonarCloud/Quality Gate desconhecida | Qualidade estática/dependências não têm análise publicada | Confirmar acesso/configuração e registrar resultado | Miguel Palacios — único integrante |
 
 ## Declaração do grupo

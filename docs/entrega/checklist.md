@@ -7,8 +7,8 @@
 - Clone limpo da referência: concluído; o clone permaneceu sem alterações rastreadas.
 - Reprodução no clone: `backend/.mvnw.cmd -B --no-transfer-progress verify` passou; API iniciou e `GET /api/health` retornou `{"status":"UP"}`. `npm ci`, 7 testes frontend, `npm run build` e `npm run dev` passaram.
 - Limitações da referência: sem Docker, Testcontainers foi ignorado localmente; o Maven reportou 48 testes ignorados, inclusive cenários BDD não executáveis.
-- Estado local: a branch `miguelpalacios1987-documentacao-projeto` contém implementação e documentação ainda não commitadas. Os resultados da referência `main` não validam estas alterações.
-- Nenhum commit, push, PR ou tag foi criado para preparar esta entrega.
+- Estado do candidato: commit `1a623c785daaabbdb1f5ba29b0da7d50785f410f` enviado à branch `miguelpalacios1987-documentacao-projeto`; ainda sem PR, integração à `main` ou tag.
+- CI da branch: [run #43541031194](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194) passou e publicou artifacts JaCoCo e BDD. `PostgresContainerTest` foi ignorado porque o runner não encontrou Docker válido.
 
 ## Inventário atualizado
 
@@ -24,8 +24,8 @@
 | Diagrama de componentes | Sim | Atualizado para React/Spring Boot/JPA e perfis de banco | `docs/modelagens-estaticas/diagrama-componentes.md` |
 | Sequências críticas | Sim | Diagramas existentes; mapeamento e limites de teste indicados | `docs/modelagens-dinamicas/sequencias-requisitos-funcionais.md` |
 | Plano/cenários e relatório de testes | Parcial | 3 de 59 cenários BDD executáveis; cobertura BDD não equivale à cobertura de código | `docs/testes-bdd/` |
-| Pipeline de CI | Sim | Pipeline local agora inclui JaCoCo e upload; sem execução pública desse candidato | `.github/workflows/ci.yml` |
-| Relatório JaCoCo | Gerado localmente | Relatório precisa ser recuperado e conferido; artifact candidato não publicado | `backend/target/site/jacoco/`; artifact `jacoco-report` em CI futuro |
+| Pipeline de CI | Sim | CI público da branch candidata verde; não integrado à `main` | [Run #43541031194](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194) |
+| Relatório JaCoCo | Gerado localmente e publicado no CI candidato | Artifact da branch disponível; artifact do SHA integrado/tag ainda pendente | [Artifact JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194/artifacts/14092062221) |
 | SonarCloud / Quality Gate | Não comprovado | Estado da configuração não conhecido; consulta de secrets/variables retornou HTTP 403 | Sem análise/link confirmado; conferir sem presumir ausência |
 | Plano e resultado de teste de carga | Sim | Plano atualizado; meta revisada de 2.000 usuários não executada | `docs/performance/` |
 | Registro de defeitos | Sim | Rascunho inicial com defeitos, lacunas e riscos | `docs/defeitos/registro-01.md` |
@@ -39,9 +39,9 @@
 
 ## Bloqueadores, em ordem
 
-1. Revisar as alterações locais e integrá-las à `main` por PR; o baseline público ainda não representa o candidato.
+1. Revisar o candidato enviado e integrá-lo à `main` por PR; o baseline público ainda não representa o candidato.
 2. Executar clone limpo e `verify` no commit integrado; confirmar README, testes e relatório JaCoCo.
-3. Completar ou justificar formalmente os cenários BDD ainda ignorados e executar testes de PostgreSQL/Testcontainers em ambiente com Docker.
+3. Completar ou justificar formalmente os cenários BDD ainda ignorados e executar PostgreSQL/Testcontainers em runner com Docker válido; o teste foi ignorado no CI da branch.
 4. Confirmar se SonarCloud está configurado, executar a análise no commit candidato e registrar o Quality Gate; a permissão atual não permitiu inspecionar secrets/variables.
 5. Executar o teste de carga controlado de 2.000 usuários previsto no RNF-03/RNF-05, ou registrar explicitamente o bloqueio e não alegar atendimento.
 6. A integrante única revisar e confirmar a declaração e deliberar sobre riscos antes de finalizar a decisão.

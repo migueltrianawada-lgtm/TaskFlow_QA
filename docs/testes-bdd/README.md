@@ -9,7 +9,7 @@ Os arquivos `.feature` desta pasta descrevem cenários de aceitação em Gherkin
 - **Personas:** Solicitante, Responsável e Administrador, indicadas no contexto dos cenários.
 - **Frontend:** estados, mensagens, responsividade, compatibilidade e latência renderizada estão contemplados.
 - O relatório de rastreabilidade é gerado por `node scripts/report-bdd-coverage.mjs`.
-- A suíte Cucumber Java executa somente cenários marcados `@executavel`; o workflow GitHub Actions também executa testes Java, frontend e PostgreSQL em Testcontainers.
+- A suíte Cucumber Java executa somente cenários marcados `@executavel`; o workflow GitHub Actions executa testes Java e frontend e tenta executar PostgreSQL em Testcontainers. No [CI candidato #43541031194](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541031194), o teste de PostgreSQL foi ignorado porque o runner não encontrou Docker válido.
 
 ## Arquivos
 
