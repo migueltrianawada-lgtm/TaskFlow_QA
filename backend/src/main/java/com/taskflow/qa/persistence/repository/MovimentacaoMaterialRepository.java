@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MovimentacaoMaterialRepository extends JpaRepository<MovimentacaoMaterialEntity, Long> {
 
     List<MovimentacaoMaterialEntity> findByReservaIdOrderByRegistradaEm(Long reservaId);
+
+    List<MovimentacaoMaterialEntity> findByReservaIdAndRecursoId(Long reservaId, Long recursoId);
 }

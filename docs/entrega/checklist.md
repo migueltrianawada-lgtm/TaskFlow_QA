@@ -1,0 +1,50 @@
+# Checklist de entrega — Aula 14
+
+## Escopo e método
+
+- Repositório público: [migueltrianawada-lgtm/TaskFlow_QA](https://github.com/migueltrianawada-lgtm/TaskFlow_QA).
+- Referência auditada: `main` no commit `4a92eb9c18f5a8ab1bb086efc17dc7858adafaaa`.
+- Clone limpo da referência: concluído; o clone permaneceu sem alterações rastreadas.
+- Reprodução no clone: `backend/.mvnw.cmd -B --no-transfer-progress verify` passou; API iniciou e `GET /api/health` retornou `{"status":"UP"}`. `npm ci`, 7 testes frontend, `npm run build` e `npm run dev` passaram.
+- Limitações da referência: sem Docker, Testcontainers foi ignorado localmente; o Maven reportou 48 testes ignorados, inclusive cenários BDD não executáveis.
+- Estado do candidato: SHA `766354d3fb68c2893be84f7f625ead19b235bc00` no [PR #3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) para `main`; aberto, mergeável e ainda sem decisão de revisão registrada. Não há tag.
+- CI do PR: [run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873) passou e publicou artifacts JaCoCo e BDD. `PostgresContainerTest` permanece ignorado conforme orientação da responsável: não há Docker local e o runner não encontrou ambiente Docker válido.
+
+## Inventário atualizado
+
+| Item | Existe? | Atualizado/verificado? | Caminho ou evidência |
+|---|---|---|---|
+| Repositório público | Sim | Parcial — PR #3 aberto, ainda não integrado | [GitHub](https://github.com/migueltrianawada-lgtm/TaskFlow_QA) |
+| Revisão por pares | Parcial | Não comprovada nas PRs auditadas #1/#2 | PRs integradas; sem registro de review identificado |
+| Aplicação executável | Sim | Sim no baseline; funcionalidade local foi validada separadamente | `backend/`, `frontend/`; ver `docs/relatorio-qualidade.md` |
+| README para reprodução | Sim | Atualizado localmente; falta validar no clone do commit integrado | `README.md` |
+| Documentação da API | Sim | Swagger/OpenAPI e README; revisar no candidato integrado | `/swagger-ui.html`; `README.md` |
+| Matriz de rastreabilidade | Sim | Versionada no candidato; estados parciais explícitos | `docs/rtm.md` |
+| Diagrama de contexto | Sim | Rascunho local conforme a arquitetura atual | `docs/modelagens-estaticas/diagrama-contexto.md` |
+| Diagrama de componentes | Sim | Atualizado para React/Spring Boot/JPA e perfis de banco | `docs/modelagens-estaticas/diagrama-componentes.md` |
+| Sequências críticas | Sim | Diagramas existentes; mapeamento e limites de teste indicados | `docs/modelagens-dinamicas/sequencias-requisitos-funcionais.md` |
+| Plano/cenários e relatório de testes | Parcial | 3 de 59 cenários BDD executáveis; cobertura BDD não equivale à cobertura de código | `docs/testes-bdd/` |
+| Pipeline de CI | Sim | CI público do PR #3 verde; ainda não integrado à `main` | [Run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873) |
+| Relatório JaCoCo | Gerado localmente e publicado no CI candidato | Artifact do PR disponível; artifact do SHA integrado/tag ainda pendente | [Artifact JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14091492854) |
+| SonarCloud / Quality Gate | Não comprovado | Estado da configuração não conhecido; consulta de secrets/variables retornou HTTP 403 | Sem análise/link confirmado; conferir sem presumir ausência |
+| Plano e resultado de teste de carga | Sim | Meta de 2.000 usuários não executada: cerca de 0,8 GiB de memória livre e sem executor isolado; motivo registrado | `docs/performance/` |
+| Registro de defeitos | Sim | Rascunho inicial com defeitos, lacunas e riscos | `docs/defeitos/registro-01.md` |
+| Relatório final de qualidade | Sim | Rascunho local; precisa refletir SHA integrado e artefatos finais | `docs/relatorio-qualidade.md` |
+| Changelog | Sim | Entrada Unreleased, não publicada | `CHANGELOG.md` |
+| Índice do pacote de evidências | Sim | Rascunho; links da tag e artifacts pendentes | `docs/evidencias/README.md` |
+| Decisão de qualidade | Sim | Rascunho bloqueia liberação; falta assinatura/nome/responsável do grupo | `docs/decisao-qualidade.md` |
+| Tag de release candidate | Não | Nenhuma tag desta entrega | Criar somente após CI verde no commit integrado da `main` |
+| Declaração nominal do grupo | Sim — grupo de uma integrante, conforme informado pela responsável | Rascunho registrado; falta revisão e confirmação final da declaração | `docs/decisao-qualidade.md` |
+| Envio ao Hub | Não verificável | Não realizado por este trabalho | Um integrante deve enviar o link/tag final |
+
+## Bloqueadores, em ordem
+
+1. Obter revisão/aprovação e decidir sobre integração do PR #3; não há decisão de revisão registrada.
+2. Executar clone limpo e `verify` no commit integrado; confirmar README, testes e relatório JaCoCo.
+3. Manter PostgreSQL/Testcontainers ignorado conforme orientação da responsável. Motivo registrado: Docker indisponível localmente e runner do CI sem ambiente Docker válido; não alegar validação PostgreSQL.
+4. Confirmar se SonarCloud está configurado, executar a análise no commit candidato e registrar o Quality Gate; a permissão atual não permitiu inspecionar secrets/variables.
+5. Provisionar executor isolado e autorizado, com recursos suficientes, banco/aplicação representativos e monitoramento; só então executar o teste de carga de 2.000 usuários previsto no RNF-03/RNF-05. O host compartilhado com 0,8 GiB livre não é apropriado.
+6. A integrante única revisar e confirmar a declaração e deliberar sobre riscos antes de finalizar a decisão.
+7. Atualizar o índice com links válidos e artifacts da mesma execução CI/SHA da tag.
+8. Somente com os itens aplicáveis resolvidos e CI verde na `main`, criar/enviar tag anotada `v1.0.0-rc1`. Nunca mover uma tag usada; se mudar o commit após a tag, criar `v1.0.0-rc2`.
+9. Após validação final, preparar o texto de entrega; o formulário do Hub deve ser enviado por um integrante.

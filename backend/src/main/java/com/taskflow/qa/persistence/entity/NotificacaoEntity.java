@@ -82,6 +82,10 @@ public class NotificacaoEntity {
         return canal;
     }
 
+    public String getMensagem() {
+        return mensagem;
+    }
+
     public StatusNotificacao getStatus() {
         return status;
     }

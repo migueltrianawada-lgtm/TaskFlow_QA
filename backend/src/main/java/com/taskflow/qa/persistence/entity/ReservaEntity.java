@@ -111,6 +111,19 @@ public class ReservaEntity {
         this.status = Objects.requireNonNull(status, "status é obrigatório");
     }
 
+    public void atualizar(Instant inicio, Instant fim, String finalidade, List<RecursoEntity> novosRecursos,
+                          java.util.Map<Long, Integer> quantidades) {
+        if (inicio == null || fim == null || !inicio.isBefore(fim)) {
+            throw new IllegalArgumentException("O horário final deve ser posterior ao inicial.");
+        }
+        this.inicio = inicio;
+        this.fim = fim;
+        this.finalidade = Objects.requireNonNull(finalidade, "finalidade é obrigatória").trim();
+        recursos.clear();
+        novosRecursos.forEach(recurso -> adicionarRecurso(recurso,
+                quantidades.getOrDefault(recurso.getId(), 1)));
+    }
+
     @AssertTrue(message = "O fim da reserva deve ser posterior ao início")
     private boolean isIntervaloValido() {
         return inicio != null && fim != null && inicio.isBefore(fim);

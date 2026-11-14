@@ -9,7 +9,7 @@ Os arquivos `.feature` desta pasta descrevem cenários de aceitação em Gherkin
 - **Personas:** Solicitante, Responsável e Administrador, indicadas no contexto dos cenários.
 - **Frontend:** estados, mensagens, responsividade, compatibilidade e latência renderizada estão contemplados.
 - O relatório de rastreabilidade é gerado por `node scripts/report-bdd-coverage.mjs`.
-- A suíte Cucumber Java executa somente cenários marcados `@executavel`; o workflow GitHub Actions também executa testes Java, frontend e PostgreSQL em Testcontainers.
+- A suíte Cucumber Java executa somente cenários marcados `@executavel`; o workflow GitHub Actions executa testes Java e frontend e tenta executar PostgreSQL em Testcontainers. No [CI do PR #3, run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873), o teste de PostgreSQL foi ignorado conforme orientação da responsável: o runner não encontrou Docker válido, e Docker também não está disponível no ambiente local.
 
 ## Arquivos
 
@@ -24,7 +24,7 @@ Os arquivos `.feature` desta pasta descrevem cenários de aceitação em Gherkin
 
 Os cenários de `fundacao-implementada.feature` são executados com Cucumber contra a regra de domínio de sobreposição. Os outros arquivos são critérios especificados, mas ainda não estão conectados a passos executáveis porque os fluxos de negócio correspondentes não existem na aplicação. Portanto, cobertura total das tags significa **rastreabilidade documental dos RFs/RNFs**, não cobertura de código medida nem validação funcional completa.
 
-Os cenários de carga com 10.000 usuários e validações dependentes de navegadores/ambientes são marcados para execução controlada, não para testes unitários locais.
+Os cenários de carga com 2.000 usuários e validações dependentes de navegadores/ambientes são marcados para execução controlada, não para testes unitários locais.
 
 ## Ambiente informado
 

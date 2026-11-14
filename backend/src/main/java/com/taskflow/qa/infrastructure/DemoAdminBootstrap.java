@@ -24,6 +24,11 @@ class DemoAdminBootstrap {
             @Value("${taskflow.demo-admin.email}") String email,
             @Value("${taskflow.demo-admin.password}") String password) {
         return args -> {
+            for (PerfilAcesso role : PerfilAcesso.values()) {
+                perfilRepository.findByNome(role)
+                        .orElseGet(() -> perfilRepository.save(new PerfilEntity(role)));
+            }
+
             if (usuarioRepository.findByEmailIgnoreCase(email).isPresent()) {
                 return;
             }

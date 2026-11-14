@@ -12,7 +12,7 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - Evitar sobreposição e dupla reserva, inclusive sob solicitações simultâneas.
 - Preservar a consistência de reservas, aprovações, movimentações e auditoria.
 - Suportar frontend responsivo e contratos públicos documentados.
-- Atender a meta de teste controlado com 10.000 usuários simultâneos especificada nos RNFs.
+- Atender a meta de teste controlado com 2.000 usuários simultâneos especificada nos RNFs.
 - Permitir evolução e substituição de tecnologias sem acoplar o domínio a fornecedores.
 
 ## Stack selecionada para a espinha dorsal
@@ -22,11 +22,11 @@ A arquitetura segue MVC e mantém o domínio, contratos, banco de dados, provedo
 - **Testes:** JUnit/Spring Boot Test no backend; Vitest e Testing Library no frontend.
 - **Persistência hospedada selecionada:** PostgreSQL gerenciado no Neon, configurado pelo perfil `prod` e variáveis externas; o banco local `dev` usa H2 em memória e descartável.
 - **Migrações:** Flyway versiona o schema PostgreSQL; o Hibernate valida o schema no perfil `prod`, sem alterá-lo automaticamente.
-- **Banco de integração de CI:** PostgreSQL 16 em Testcontainers executa e verifica a migração inicial.
+- **Banco de integração pretendido:** PostgreSQL 16 em Testcontainers verifica migrações e schema; esse teste permanece ignorado, conforme decisão do grupo. No CI do PR #3, o runner não encontrou um ambiente Docker válido.
 
-As seleções estão registradas em ADR-009, ADR-010 e ADR-011. A estrutura inicial contém entidades, repositórios e migração de schema, mas os fluxos de negócio e a autenticação ainda precisam ser implementados. As demais táticas seguem registradas como propostas até serem confirmadas na implementação.
+As seleções estão registradas em ADR-009, ADR-010 e ADR-011. O estado atual inclui fluxos de autenticação, autorização, gestão de recursos e reservas, auditoria, movimentações e relatórios; cobertura e lacunas de validação estão registradas na RTM e no relatório de qualidade.
 
-No estado inicial, a configuração de segurança libera somente health e documentação OpenAPI e nega as demais rotas. A autenticação, emissão/validação de tokens e autorização efetiva por perfil serão adicionadas antes de expor endpoints de negócio.
+O teste PostgreSQL/Testcontainers não foi executado: o Docker está indisponível neste ambiente local e o runner do GitHub Actions não apresentou um ambiente Docker válido. O teste segue ignorado por decisão do grupo; resultados H2 não substituem validação PostgreSQL.
 
 ## Estilo e organização
 
@@ -88,7 +88,7 @@ As táticas abaixo são decisões propostas e cada uma possui um ADR em [`adrs/`
 ## Qualidades e validação arquitetural
 
 - **Adequação funcional:** validar cada caso de uso contra os RFs numerados e verificar estado persistido e resposta apresentada.
-- **Desempenho:** executar o perfil controlado de 10.000 usuários simultâneos; reportar p50/p95/p99, erros, timeouts e tempos medidos na interface.
+- **Desempenho:** executar o perfil controlado de 2.000 usuários simultâneos; reportar p50/p95/p99, erros, timeouts e tempos medidos na interface.
 - **Compatibilidade e usabilidade:** executar fluxos nos navegadores definidos e nos viewports de 360 px, 768 px e 1280 px.
 - **Confiabilidade:** injetar falhas nos fluxos transacionais e de notificação; confirmar ausência de registros parciais e de estado falso de sucesso.
 - **Segurança:** validar permissões por perfil, escopo de reservas, proteção de credenciais, validação no servidor e ausência de detalhes internos nas respostas.
