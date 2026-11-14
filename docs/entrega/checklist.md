@@ -7,8 +7,8 @@
 - Clone limpo da referência: concluído; o clone permaneceu sem alterações rastreadas.
 - Reprodução no clone: `backend/.mvnw.cmd -B --no-transfer-progress verify` passou; API iniciou e `GET /api/health` retornou `{"status":"UP"}`. `npm ci`, 7 testes frontend, `npm run build` e `npm run dev` passaram.
 - Limitações da referência: sem Docker, Testcontainers foi ignorado localmente; o Maven reportou 48 testes ignorados, inclusive cenários BDD não executáveis.
-- Estado do candidato: SHA `766354d3fb68c2893be84f7f625ead19b235bc00` no [PR #3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) para `main`; aberto, mergeável e ainda sem decisão de revisão registrada. Não há tag.
-- CI do PR: [run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873) passou e publicou artifacts JaCoCo e BDD. `PostgresContainerTest` permanece ignorado conforme orientação da responsável: não há Docker local e o runner não encontrou ambiente Docker válido.
+- Estado do candidato: SHA `0425ed73bdedea13f093e489db737856fde19ef3` no [PR #3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) para `main`; aberto, mergeável e ainda sem decisão de revisão registrada. Não há tag.
+- CI do PR: [run #43542466476](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43542466476) passou e publicou artifacts JaCoCo e BDD. `PostgresContainerTest` permanece ignorado conforme orientação da responsável: não há Docker local e o runner não encontrou ambiente Docker válido.
 
 ## Inventário atualizado
 
@@ -27,7 +27,7 @@
 | Pipeline de CI | Sim | CI público do PR #3 verde; ainda não integrado à `main` | [Run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873) |
 | Relatório JaCoCo | Gerado localmente e publicado no CI candidato | Artifact do PR disponível; artifact do SHA integrado/tag ainda pendente | [Artifact JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14091492854) |
 | SonarCloud / Quality Gate | Não comprovado | Estado da configuração não conhecido; consulta de secrets/variables retornou HTTP 403 | Sem análise/link confirmado; conferir sem presumir ausência |
-| Plano e resultado de teste de carga | Sim | Meta de 2.000 usuários não executada: cerca de 0,8 GiB de memória livre e sem executor isolado; motivo registrado | `docs/performance/` |
+| Plano e resultado de teste de carga | Sim | Ensaio local exploratório com 2.000 usuários: 0% de erros, p95 2.688,28 ms (acima do limite de 2 s); não aprova RNF-03/RNF-05 | `docs/performance/` |
 | Registro de defeitos | Sim | Rascunho inicial com defeitos, lacunas e riscos | `docs/defeitos/registro-01.md` |
 | Relatório final de qualidade | Sim | Rascunho local; precisa refletir SHA integrado e artefatos finais | `docs/relatorio-qualidade.md` |
 | Changelog | Sim | Entrada Unreleased, não publicada | `CHANGELOG.md` |
@@ -43,7 +43,7 @@
 2. Executar clone limpo e `verify` no commit integrado; confirmar README, testes e relatório JaCoCo.
 3. Manter PostgreSQL/Testcontainers ignorado conforme orientação da responsável. Motivo registrado: Docker indisponível localmente e runner do CI sem ambiente Docker válido; não alegar validação PostgreSQL.
 4. Confirmar se SonarCloud está configurado, executar a análise no commit candidato e registrar o Quality Gate; a permissão atual não permitiu inspecionar secrets/variables.
-5. Provisionar executor isolado e autorizado, com recursos suficientes, banco/aplicação representativos e monitoramento; só então executar o teste de carga de 2.000 usuários previsto no RNF-03/RNF-05. O host compartilhado com 0,8 GiB livre não é apropriado.
+5. Repetir a carga em executor isolado e representativo, medir a jornada renderizada, incluir operações/perfis previstos e coletar métricas de CPU/memória/banco; o ensaio local exploratório não atingiu o p95 e não valida produção.
 6. A integrante única revisar e confirmar a declaração e deliberar sobre riscos antes de finalizar a decisão.
 7. Atualizar o índice com links válidos e artifacts da mesma execução CI/SHA da tag.
 8. Somente com os itens aplicáveis resolvidos e CI verde na `main`, criar/enviar tag anotada `v1.0.0-rc1`. Nunca mover uma tag usada; se mudar o commit após a tag, criar `v1.0.0-rc2`.

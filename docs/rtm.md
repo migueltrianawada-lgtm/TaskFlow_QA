@@ -26,7 +26,7 @@ Esta matriz relaciona os requisitos funcionais com código, testes e evidências
 | Requisito | Evidência disponível | Lacuna/limite |
 |---|---|---|
 | RNF-01/02 — adequação funcional e mensagens | Testes backend/frontend; RTM acima | Não há aceitação completa dos RFs nem validação de cada falha de integração |
-| RNF-03/05 — desempenho sob carga | Smoke local de 10 workers: 2.440 consultas, 0 falhas, p95 107,43 ms; `docs/performance/resultado-01.md` | A meta de 2.000 usuários simultâneos e a jornada frontend não foram validadas. Ensaio não iniciado porque o host compartilhado tinha cerca de 0,8 GiB de memória livre e não há ambiente isolado provisionado; o smoke não pode ser extrapolado |
+| RNF-03/05 — desempenho sob carga | Ensaio exploratório local de 2.000 usuários: 350.614 consultas estáveis, 0 falhas, p95 2.688,28 ms; `docs/performance/resultado-01.md` | Não aprovado: p95 excede 2 s. Medição somente HTTP de disponibilidade em H2; sem jornada frontend, operações de escrita/relatório ou métricas de CPU/memória/banco. Não representa produção nem valida PostgreSQL |
 | RNF-04/11 — concorrência e confiabilidade | Teste concorrente H2; transações no serviço | Teste PostgreSQL/Testcontainers deliberadamente ignorado conforme decisão do grupo; falta também teste controlado de falha |
 | RNF-06/08/10 — compatibilidade e responsividade | Build e testes automatizados frontend | Browsers e viewports definidos ainda não foram testados |
 | RNF-07/12 — comportamento de notificações | Adaptador simulado e persistência local | Indisponibilidade/integração externa não tem teste dedicado |
