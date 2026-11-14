@@ -1,12 +1,12 @@
-# Relatório de qualidade — candidato local
+# Relatório de qualidade — versão integrada à main
 
 ## Identificação e decisão
 
 - Repositório: `migueltrianawada-lgtm/TaskFlow_QA`.
 - Commit público usado como baseline da auditoria limpa: `4a92eb9c18f5a8ab1bb086efc17dc7858adafaaa`.
-- Candidato enviado na branch `miguelpalacios1987-documentacao-projeto`: `766354d3fb68c2893be84f7f625ead19b235bc00`.
-- PR #3 está aberto, mergeável e sem decisão de revisão registrada. O CI desse SHA está verde; ainda não foi integrado e este não é um relatório do commit de uma tag.
-- Conclusão: **bloquear a entrega como versão aprovada** até que o código local seja integrado, os itens de evidência pendentes sejam decididos e a validação seja refeita no SHA candidato.
+- Pull requests [#3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) e [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4) integrados.
+- SHA atual da `main`: `2ff104ef8e03a9550508f332a523986a9a600751`; CI verde em [run #43552739034](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034). Ainda não há tag.
+- Conclusão: **não declarar aprovação plena**. O p95 da consulta de disponibilidade excedeu a meta; SonarCloud não foi executado e PostgreSQL/Testcontainers segue deliberadamente ignorado.
 
 ## Execuções registradas
 
@@ -16,7 +16,8 @@
 | Branch local, antes do JaCoCo | `backend/.mvnw.cmd verify`, `npm test` e `npm run build` | Maven verify passou: 70 testes contabilizados, 0 falhas/erros, 48 ignorados; frontend passou com 4 testes e build | Worktree não commitado; teste PostgreSQL/Testcontainers não executado |
 | Branch local, após incluir JaCoCo | Verificação Maven/geração de relatório, frontend | Maven terminou com exit code 0; frontend: 4 testes passaram e build Vite concluiu | Cucumber reportou 91 cenários, 88 ignorados; o aggregate Maven reportou 70 testes, 0 falhas/erros, 48 ignorados. Testcontainers foi ignorado por Docker ausente |
 | Branch local, após otimizar relatório | `mvnw verify` após filtro de período no repositório, agregação em passagem única e índice V2 | Maven verify passou: 71 testes contabilizados, 0 falhas/erros, 48 ignorados; JaCoCo gerou relatório | Cucumber reportou 91 cenários, 88 ignorados; PostgreSQL/Testcontainers foi ignorado por Docker ausente; ainda não executado em CI |
-| CI do PR #3 | [Run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873), SHA `766354d3fb68c2893be84f7f625ead19b235bc00` | Workflow verde; backend, frontend, build e auditoria de dependências passaram; artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14091492854) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14092202072) publicados | 71 testes agregados, 0 falhas/erros, 48 ignorados; Cucumber: 91 cenários, 88 ignorados. `PostgresContainerTest` permanece ignorado conforme orientação da responsável: Docker indisponível localmente e runner sem ambiente Docker válido. CI não valida PostgreSQL. PR aberto, sem decisão de revisão e sem tag |
+| CI do PR #3 (histórico) | [Run #43541559873](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873), SHA `766354d3fb68c2893be84f7f625ead19b235bc00` | Workflow verde; backend, frontend, build e auditoria de dependências passaram; artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14091492854) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43541559873/artifacts/14092202072) publicados | 71 testes agregados, 0 falhas/erros, 48 ignorados; Cucumber: 91 cenários, 88 ignorados. `PostgresContainerTest` foi ignorado conforme orientação da responsável. PR #3 integrado; ver CI atual da `main` abaixo |
+| CI atual da `main` | [Run #43552739034](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034), SHA `2ff104ef8e03a9550508f332a523986a9a600751` | Backend, frontend, build, auditoria de dependências e geração dos relatórios passaram; artifacts [JaCoCo](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096622744) e [BDD](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096522932) publicados | `PostgresContainerTest` continua ignorado; CI verde não valida PostgreSQL. Nenhuma tag criada |
 | Desempenho local (exploratório) | 2.000 usuários sintéticos; GET de disponibilidade; H2 descartável; 15 min estáveis | 350.614 respostas estáveis, 0 falhas; p50 9,56 ms, p95 2.688,28 ms, p99 7.762,61 ms | Não aprovado: p95 excede 2 s. Apenas API local; não mede frontend, escrita, relatórios ou PostgreSQL. Detalhes em `performance/resultado-01.md` |
 | Smoke de desempenho local | 10 workers autenticados; GET `/api/recursos`; 20 salas sintéticas no H2; 10 s | 2.440 respostas HTTP 200, 0 falhas; p50 28,89 ms, p95 107,43 ms, p99 197,66 ms, max. 438,29 ms | Smoke separado e pequeno; não representa a carga-alvo |
 | CI público baseline | [Run #43523400331](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43523400331) no SHA `4a92eb9c18f5a8ab1bb086efc17dc7858adafaaa` | Verde para aquele SHA | Não valida alterações locais nem é CI da tag candidata |
@@ -32,7 +33,7 @@ O relatório de utilização foi otimizado para filtrar reservas sobrepostas no 
 ## Segurança, desempenho e ambiente
 
 - Login JWT e controle por perfil são implementados; há testes de autenticação inválida, token obrigatório e autorização. Falta cobertura completa por endpoint/perfil e revisão de segurança independente.
-- SonarCloud/Quality Gate não foi comprovado. A consulta de secrets/variables foi negada com HTTP 403; o estado de credenciais não é conhecido.
+- SonarCloud/Quality Gate não foi executado: o workflow não tem etapa de análise, não há secrets/variables de Actions nem variáveis de ambiente Sonar disponíveis; token, URL e chave do projeto não foram fornecidos.
 - A execução local de 2.000 usuários não atende ao p95 estabelecido e não cobre jornada frontend nem o perfil completo de operações; não comprova desempenho de produção. PostgreSQL/Testcontainers continua ignorado por falta de Docker válido, conforme documentado; não foi validado por esta carga H2. Consulte `performance/plano-01.md` e `performance/resultado-01.md`.
 - Neon não provisiona usuário inicial por decisão de escopo; o processo privado de provisionamento continua necessário para disponibilizar produção.
 - O grupo foi informado como composto por uma única integrante; o documento de decisão registra o nome e a contribuição declarada, sujeitos à confirmação final da própria integrante.

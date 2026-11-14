@@ -2,7 +2,7 @@
 
 ## Escopo
 
-O diagrama representa a implementação TaskFlow deste candidato local. A arquitetura documentada ainda precisa ser confirmada no commit integrado à `main`.
+O diagrama representa a implementação TaskFlow integrada à `main` no SHA `2ff104ef8e03a9550508f332a523986a9a600751`; a CI desse commit passou.
 
 ```mermaid
 flowchart LR

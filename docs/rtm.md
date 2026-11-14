@@ -2,7 +2,7 @@
 
 ## Escopo e interpretação
 
-Esta matriz relaciona os requisitos funcionais com código, testes e evidências. O código indicado representa o candidato no PR #3; ele ainda não está integrado à `main`. “Implementado” não significa que o requisito tenha cobertura automatizada suficiente ou esteja comprovado em produção. A cobertura BDD é rastreabilidade documental, não cobertura de código.
+Esta matriz relaciona os requisitos funcionais com código, testes e evidências da versão integrada à `main` no SHA `2ff104ef8e03a9550508f332a523986a9a600751`. “Implementado” não significa que o requisito tenha cobertura automatizada suficiente ou esteja comprovado em produção. A cobertura BDD é rastreabilidade documental, não cobertura de código.
 
 | Requisito | Implementação principal | Verificação disponível | Estado da evidência |
 |---|---|---|---|

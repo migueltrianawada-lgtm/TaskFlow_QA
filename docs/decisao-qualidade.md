@@ -4,17 +4,17 @@
 
 ## Decisão atual
 
-**Bloquear a aprovação da release candidate neste momento.** O [PR #3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) está aberto e mergeável, com CI verde no SHA `0425ed73bdedea13f093e489db737856fde19ef3`, mas sem decisão de revisão registrada e sem integração à `main`. O ensaio exploratório local de 2.000 usuários não atingiu o p95 de disponibilidade de 2 s e não mediu a jornada renderizada nem a carga completa de operações. PostgreSQL/Testcontainers permanece deliberadamente ignorado conforme orientação da responsável: Docker não está disponível localmente e o runner do CI não apresentou ambiente Docker válido. A decisão deve ser reavaliada após as pendências aplicáveis serem tratadas e as evidências finais vinculadas ao mesmo SHA da tag.
+**Bloquear a aprovação plena da release candidate neste momento.** Os [PRs #3](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/3) e [#4](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/pull/4) foram integrados. A `main` está no SHA `2ff104ef8e03a9550508f332a523986a9a600751`, com [CI verde](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034). O ensaio exploratório local de 2.000 usuários não atingiu o p95 de disponibilidade de 2 s e não mediu a jornada renderizada nem a carga completa de operações. SonarCloud não foi configurado/executado por falta de token e configuração do projeto; PostgreSQL/Testcontainers permanece deliberadamente ignorado conforme orientação da responsável. Ainda não há tag.
 
 ## Critérios e evidências
 
 | Critério | Evidência disponível | Decisão |
 |---|---|---|
-| Reprodutibilidade em clone limpo | Baseline `main` `4a92eb9` reproduz Maven, frontend e smoke, mas não contém as alterações locais | Não atende ao candidato atual |
+| Reprodutibilidade em clone limpo | Baseline auditado `4a92eb9`; alterações integradas na `main` em `2ff104e` | A CI da `main` passou; ainda falta clone limpo independente do SHA atual |
 | Requisitos funcionais e testes | Código local, RTM e testes locais; BDD: 3/59 executáveis | Parcial; não liberar |
-| CI no commit avaliado | [Run #43542466476](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43542466476) verde no SHA `0425ed73bdedea13f093e489db737856fde19ef3`; artifacts JaCoCo e BDD publicados | PR #3 ainda aberto; falta revisão e CI no SHA integrado/tag. Testcontainers foi ignorado a pedido da responsável porque Docker está indisponível localmente e o runner não encontrou ambiente Docker válido |
-| Cobertura JaCoCo | Artifact JaCoCo publicado no CI do PR #3 | Disponível para candidato; falta conferir no SHA integrado/tag |
-| SonarCloud Quality Gate | Não há link ou resultado confirmado; consulta de secrets/variables recebeu HTTP 403 | Pendente, sem inferir ausência de configuração |
+| CI no commit avaliado | [Run #43552739034](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034) verde no SHA `2ff104ef8e03a9550508f332a523986a9a600751`; artifacts JaCoCo e BDD publicados | PRs #3 e #4 integrados; sem tag. Testcontainers foi ignorado a pedido da responsável porque Docker não está disponível localmente nem no runner |
+| Cobertura JaCoCo | [Artifact da CI na main](https://github.com/migueltrianawada-lgtm/TaskFlow_QA/actions/runs/43552739034/artifacts/14096622744) | Disponível para o SHA atual da `main`; não equivale a aprovação de cobertura |
+| SonarCloud Quality Gate | Workflow sem etapa Sonar; secrets/variables de Actions e variáveis de ambiente Sonar não disponíveis | Não executado; falta configurar projeto e fornecer token autorizado |
 | Desempenho | Ensaio exploratório de 2.000 usuários, 350.614 consultas estáveis, 0 falhas, p95 2.688,28 ms | Não atende RNF-03/RNF-05: p95 excede 2 s; API local em H2, sem frontend nem perfil completo. Ver `docs/performance/resultado-01.md` |
 | Banco de produção e acesso inicial | Perfis H2/PostgreSQL documentados; Neon sem provisionamento inicial de Administrador | Risco operacional aberto; produção não demonstrada |
 | Segurança operacional | JWT e autorização implementados, mas revisão independente, HTTPS do deploy e análise Sonar não comprovados | Parcial; não afirmar prontidão para produção |
@@ -26,7 +26,7 @@
 | p95 de disponibilidade excede o limite no ensaio local | A meta de latência não foi atingida neste perfil e a evidência não representa produção | Não aceito; investigar e repetir em ambiente isolado, medindo frontend, operações previstas e métricas do ambiente | Miguel Palacios — único integrante |
 | Sem procedimento privado para criar primeiro Administrador no Neon | Usuários de produção não conseguem acessar o sistema | Não aceito; definir e testar procedimento seguro antes de produção | Miguel Palacios — único integrante |
 | Testcontainers/PostgreSQL deliberadamente ignorado localmente e no CI do PR | Diferenças entre H2 e PostgreSQL podem não ser detectadas | Conforme orientação da responsável, manter ignorado; Docker indisponível localmente e runner sem ambiente Docker válido. Não declarar PostgreSQL validado | Miguel Palacios — único integrante |
-| Configuração SonarCloud/Quality Gate desconhecida | Qualidade estática/dependências não têm análise publicada | Sem acesso confirmado para verificar configuração; consulta de secrets/variables retornou HTTP 403. Registrar como não verificado, sem inferir ausência | Miguel Palacios — único integrante |
+| SonarCloud/Quality Gate sem configuração disponível | Não há análise estática/Sonar publicada para o SHA | Não executado; requer projeto e credencial autorizada. A inspeção encontrou zero secrets/variables de Actions e nenhuma configuração Sonar no workflow | Miguel Palacios — único integrante |
 
 ## Declaração do grupo
 
